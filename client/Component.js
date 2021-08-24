@@ -1,9 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getMoviesThunk, gite} from './store/movies'
-import axios from 'axios'
-import Secret from '../secret'
-
+import {getMoviesThunk} from './store/movies'
 
 class Component extends React.Component{
     constructor(){
@@ -25,10 +22,7 @@ class Component extends React.Component{
         console.log(Secret)
     }
     async search(){
-        // let result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + this.state.input)
-        // await this.setState({movies: result.data.Search})
-        await this.props.getMovies(this.state.input)
-        
+        await this.props.getMovies(this.state.input)     
     }
     render(){
         let movies = this.props.movies
@@ -59,8 +53,7 @@ const mapStateToProps = state => ({
 })
   
 const mapDispatchToProps = dispatch => ({
-    getMovies: (input) => dispatch(getMoviesThunk(input)),
-    gite: () => dispatch(gite())
+    getMovies: (input) => dispatch(getMoviesThunk(input))
   })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Component)

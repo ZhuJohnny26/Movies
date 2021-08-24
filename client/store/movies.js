@@ -8,10 +8,6 @@ const getMovies = movies => ({
     movies
 })
 
-export const gite = () => dispatch => {
-    dispatch({type:'default'})
-}
-
 export const getMoviesThunk = (input) => async dispatch => {
     try {
         const result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + input)
