@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Component from './Component'
+import store from './store'
+import {Provider} from 'react-redux'
 const App = () => (
-    <div>
+    <Provider store={store}>
         test
-    <Component/>
-    </div>
+        <Component/>
+    </Provider>
 )
 
 

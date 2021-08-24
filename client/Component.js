@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getMoviesThunk} from './store'
+import {getMoviesThunk, gite} from './store/movies'
 import axios from 'axios'
 import Secret from '../secret'
 
@@ -25,25 +25,42 @@ class Component extends React.Component{
         console.log(Secret)
     }
     async search(){
-        let result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + this.state.input)
-        await this.setState({movies: result.data.Search})
+        // let result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + this.state.input)
+        // await this.setState({movies: result.data.Search})
+        await this.props.getMovies(this.state.input)
         
     }
     render(){
-        let movies = this.state.movies
+        let movies = this.props.movies
+        console.log(movies)
         return (
             <div>
                 test
                 <input name='input' onChange={this.handleChange}></input>
                 <button onClick={this.search}>search</button>
                 <button onClick={this.get} >test</button>
-                {this.state.movies.length !== 0 && 
+                {movies.length !== 0 && 
                     <div>  
-                       test
+                       {movies.map((movie, index) => (
+                           <div key={index}>
+                               {movie.Title}
+                               <img src={movie.Poster}></img>
+                            </div>
+                            
+                       ))}
                     </div>}
             </div>
         )
     }
 }
 
-export default Component
+const mapStateToProps = state => ({
+    movies: state
+})
+  
+const mapDispatchToProps = dispatch => ({
+    getMovies: (input) => dispatch(getMoviesThunk(input)),
+    gite: () => dispatch(gite())
+  })
+
+export default connect(mapStateToProps, mapDispatchToProps)(Component)

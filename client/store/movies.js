@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Secret from '../secret'
+import Secret from '../../secret'
 //Action Types
 const GET_MOVIES = 'GET_MOVIES'
 
@@ -8,9 +8,13 @@ const getMovies = movies => ({
     movies
 })
 
-export const getMoviesThunk = () => async dispatch => {
+export const gite = () => dispatch => {
+    dispatch({type:'default'})
+}
+
+export const getMoviesThunk = (input) => async dispatch => {
     try {
-        const result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + this.state.input)
+        const result = await axios(`http://www.omdbapi.com/?apikey=${Secret}&s=` + input)
         dispatch(getMovies(result.data.Search))
     } catch (err) {
         console.log('Error in get movies thunk')
