@@ -7,42 +7,48 @@ class Component extends React.Component{
         super()
         this.state = {
             input:'',
-            movies:[],
-            var: {}
         }
         this.handleChange = this.handleChange.bind(this)
-        this.get = this.get.bind(this)
         this.search = this.search.bind(this)
+        
     }
     async handleChange(event){
             await this.setState({[event.target.name] : event.target.value})
     }
-    get() {
-        console.log(this.state)
-        console.log(Secret)
-    }
     async search(){
-        await this.props.getMovies(this.state.input)     
+        await this.props.getMovies(this.state.input)
+    }
+    componentDidMount(){
+        let test = document.getElementById('search-bar')
+        test.addEventListener('keydown', (e) => {
+            if(e.code === 'Enter') {
+                this.search()
+            }
+        })
     }
     render(){
         let movies = this.props.movies
-        console.log(movies)
         return (
-            <div>
-                test
-                <input name='input' onChange={this.handleChange}></input>
-                <button onClick={this.search}>search</button>
-                <button onClick={this.get} >test</button>
-                {movies.length !== 0 && 
-                    <div>  
+            <div id='container'>
+                <div id='search-bar'>
+                <input name='input' className='interface' onChange={this.handleChange}></input>
+                <button className='interface' onClick={this.search}>search</button>
+                </div>
+                {Array.isArray(movies) ? 
+                    <div id='movies-container'>  
                        {movies.map((movie, index) => (
-                           <div key={index}>
-                               {movie.Title}
+                           <div key={index} className='movie'>
                                <img src={movie.Poster}></img>
+                               <p>{movie.Title}</p>
                             </div>
                             
                        ))}
-                    </div>}
+                    </div>
+                    : 
+                    <p id='error-message'>
+                    {movies}    
+                    </p>    
+                }
             </div>
         )
     }
