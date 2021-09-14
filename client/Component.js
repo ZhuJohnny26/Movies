@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getMoviesThunk} from './store/movies'
-
+import {Link} from 'react-router-dom'
 class Component extends React.Component{
     constructor(){
         super()
@@ -13,10 +13,11 @@ class Component extends React.Component{
         
     }
     async handleChange(event){
-            await this.setState({[event.target.name] : event.target.value})
+        await this.setState({[event.target.name] : event.target.value})
     }
     async search(){
         await this.props.getMovies(this.state.input)
+        
     }
     componentDidMount(){
         let test = document.getElementById('search-bar')
@@ -28,6 +29,7 @@ class Component extends React.Component{
     }
     render(){
         let movies = this.props.movies
+        console.log(movies[0])
         return (
             <div id='container'>
                 <div id='search-bar'>
@@ -37,10 +39,10 @@ class Component extends React.Component{
                 {Array.isArray(movies) ? 
                     <div id='movies-container'>  
                        {movies.map((movie, index) => (
-                           <div key={index} className='movie'>
+                           <Link to={`/movies/` + index} key={index} className='movie'>
                                <img src={movie.Poster}></img>
                                <p>{movie.Title}</p>
-                            </div>
+                            </Link>
                             
                        ))}
                     </div>
