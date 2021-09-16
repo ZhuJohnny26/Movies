@@ -29,11 +29,10 @@ class Component extends React.Component{
     }
     render(){
         let movies = this.props.movies
-        console.log(movies[0])
         return (
             <div id='container'>
                 <div id='search-bar'>
-                <input name='input' className='interface' onChange={this.handleChange}></input>
+                <input name='input' className='interface' onChange={this.handleChange} placeholder='Search for movies here' ></input>
                 <button className='interface' onClick={this.search}>search</button>
                 </div>
                 {Array.isArray(movies) ? 

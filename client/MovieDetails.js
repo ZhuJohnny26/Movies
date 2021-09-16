@@ -10,19 +10,33 @@ class MovieDetails extends React.Component {
         }
     }
     async componentDidMount(){
-    let index = window.location.href.slice(-1)
-    let test = await this.props.getMovie(index)
-    console.log('i', test)
-    await this.setState(test)
-    
+        let index = window.location.href.slice(-1)
+        let result = await this.props.getMovie(index)
+        this.setState({movie: result}) 
     }
     render(){ 
-        console.log('huh', this.state)
+        
+        let movie = this.state.movie
         return (
-        <div>
-            <Link to={'/'}>back</Link>
-            <div>{this.state.Title}</div>
-            {this.state.Plot}
+        <div id='detailed-container'>
+            <Link id='back-arrow' to={'/'}>⤶</Link>  
+            <div id='detailed-movie' >
+                <img id='poster'src={movie.Poster} />
+                <div id='details'>
+                    <div id='header'>
+                        <p>{movie.Title}</p>
+                        <p>{movie.imdbRating}⭐</p>
+                    </div>
+                    <p>{movie.Plot}</p>
+                    <p>Genre: {movie.Genre} </p>
+                    <p>Language: {movie.Language}</p>
+                    <p>Runtime: {movie.Runtime}</p>
+                    <p>Released: {movie.Released}</p>
+                    <p>Country: {movie.Country}</p>
+                    
+                </div>
+            </div>
+            
         </div>
         )
     }

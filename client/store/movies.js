@@ -28,7 +28,6 @@ export const getMoviesThunk = (input) => async (dispatch, getState) => {
 
 export const getMovieDetails = (index) => async (dispatch, getState) => {
     try {
-        console.log('running?')
         let state = getState()
         let movie = await axios(`http://www.omdbapi.com/?apikey=${Secret}&i=` + state[index].imdbID + `&plot=full`)
         return movie.data
